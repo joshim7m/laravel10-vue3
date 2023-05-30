@@ -3,11 +3,10 @@ import { useRouter } from 'vue-router'
 
 export default function useAuth() {
 
-  const user = ref({})
   const router = useRouter()
 
   const loginForm = reactive({
-    email: 'joshim@exe.com',
+    email: 'robin@exe.com',
     password: 'carbon'
   })
 
@@ -33,17 +32,8 @@ export default function useAuth() {
         })
   }
   
-  const getUser = () => {
-    axios.get('/api/user')
-      .then(response => {
-        user.value = response.data
-      })
-  }
 
-  const isLoggedIn = () => {
-    (localStorage.getItem('loggedIn') == true) ? true : false;
-  }
 
-  return { submitLogin, logOut, isLoggedIn, getUser, user }
+  return { submitLogin, logOut }
 
 }

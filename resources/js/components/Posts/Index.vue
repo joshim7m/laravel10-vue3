@@ -29,7 +29,7 @@
             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">{{ post.content }}</td>
             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
               <router-link :to="{ name: 'posts.edit', params: {id: post.id} }">Edit</router-link>
-              <a href="#" class="ml-2" @click.prevent="deletePost(post.id)">Delete</a>
+              <a v-if="checkPermission('posts.delete')" href="#" class="ml-2" @click.prevent="deletePost(post.id)">Delete</a>
             </td>
           </tr>
         </tbody>
@@ -40,15 +40,26 @@
 
 
 
-<script setup>
+<script>
   import { onMounted } from 'vue';
   import usePosts from '../../composables/posts';
+  import useUserinfo from '../../composables/userinfo';
 
-  const { posts, getPosts, deletePost } = usePosts()
+  export default{
+    setup(){
 
-  onMounted( () => {
-    getPosts()
-  })
+      const { posts, getPosts, deletePost } = usePosts()
+      const { getAbilities, checkPermission, isLoggedIn } = useUserinfo()
+
+      onMounted( () => {
+        getPosts()
+        getAbilities()
+
+      })
+
+      return { getPosts, posts, deletePost, getAbilities, checkPermission, isLoggedIn }
+    }
+  }
 
 </script>
 

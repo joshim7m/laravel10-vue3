@@ -63,12 +63,14 @@
 
   import { onMounted } from 'vue'
   import useAuth from '../composables/auth'
+  import useUserinfo from '../composables/userinfo'
 
   export default{
 
     setup(){
 
-      const { logOut, getUser, user } = useAuth()
+      const { logOut } = useAuth()
+      const { getUser, user } = useUserinfo()
 
       onMounted( () => {
         getUser()

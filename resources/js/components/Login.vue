@@ -40,17 +40,19 @@
   import { onMounted } from 'vue'
   import { useRouter } from 'vue-router'
   import useAuth from '../composables/auth'
+  import useUserinfo from '../composables/userinfo'
 
   export default{
 
     setup(){
 
-      const { submitLogin, isLoggedIn } = useAuth()
+      const router = useRouter()
+      const { submitLogin } = useAuth()
+      const { isLoggedIn } = useUserinfo()
 
       onMounted( () => {
         if(isLoggedIn()){
-          console.log('logged in')
-          //router.push({ name: 'posts.index' })
+          router.push({ name: 'posts.index' })
         }else{
           console.log('Not logged in')
         }
