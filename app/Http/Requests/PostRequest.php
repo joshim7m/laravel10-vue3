@@ -20,4 +20,11 @@ class PostRequest extends FormRequest
             'category_id' => ['required', 'exists:categories,id'],
         ];
     }
+
+    public function attributes()
+    {
+      return [
+        'category_id' => 'category'
+      ];
+    }
 }

@@ -13,8 +13,22 @@ class PostController extends Controller
   public function index()
   {
 
+    $orderColumn = request('order_column', 'created_at');
+    if(!in_array($orderColumn, ['title', 'created_at'])){
+      $orderColumn = 'created_at';
+    }
 
-    $posts = Post::with('category')->paginate(10);
+    $orderDirection = request('order_direction', 'desc');
+    if(!in_array($orderDirection, ['asc', 'desc'])){
+      $orderDirection = 'desc';
+    }
+
+    $posts = Post::with('category')
+            ->when(request('category'), function($query){
+              $query->where('category_id', request('category'));
+            })
+            ->orderBy($orderColumn, $orderDirection)
+            ->paginate(10);
 
     return PostResource::collection($posts);
   }
@@ -29,7 +43,7 @@ class PostController extends Controller
     }
 
     $post = Post::create($request->validated());
-
+    sleep(1);
     return new PostResource($post);
   }
 
