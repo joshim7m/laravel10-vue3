@@ -6,7 +6,7 @@ export default function useAuth() {
   const router = useRouter()
 
   const loginForm = reactive({
-    email: 'robin@exe.com',
+    email: 'joshim@exe.com',
     password: 'carbon'
   })
 

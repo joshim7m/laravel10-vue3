@@ -53,8 +53,6 @@
       onMounted( () => {
         if(isLoggedIn()){
           router.push({ name: 'posts.index' })
-        }else{
-          console.log('Not logged in')
         }
       })
 

@@ -1,4 +1,6 @@
+
 import { createRouter, createWebHistory } from 'vue-router'
+import NProgress from 'nprogress';
 
 import GuestLayout from '../layouts/Guest.vue'
 import AuthenticatedLayout from '../layouts/Authenticated.vue'
@@ -8,6 +10,8 @@ import Login from '../components/Login.vue'
 import PostsIndex from '../components/Posts/Index.vue'
 import CreatePost from '../components/Posts/Create.vue'
 import EditPost from '../components/Posts/Edit.vue'
+
+
 
 function auth(to, from, next){
   if(JSON.parse(localStorage.getItem('loggedIn'))){
@@ -56,7 +60,18 @@ const routes = [
     }
   ]
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
+
+router.beforeEach((to, from, next) => {
+  NProgress.start();
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
+
+export default router;

@@ -27,9 +27,6 @@ export default function useUserinfo() {
     return localStorage.getItem('loggedIn') == 'true';
   }
 
-  // onMounted( () => {
-  //   getAbilities()
-  // })
 
   return { getUser, user, getAbilities, abilities, checkPermission, isLoggedIn }
 
